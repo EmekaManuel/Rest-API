@@ -11,18 +11,20 @@ const getGoals = asyncHandler(async (req, res) => {
 // @desc Post Goals
 // @route Post /api/goals
 // @access Private
-const createGoal = asyncHandler(async (req, res) => {
-  if (!req.body.text) {
-    res.status(400);
-    throw new Error("please add a text field");
-  }
-  const newGoal = await Goal.create({
-    text: req.body.text
+const createGoal = async (req, res) => {
+  try {
+    if (!req.body.text) {
+      return res.status(400).send("Please add a text field");
+    }
     
-  })
+    const newGoal = await Goal.create({ text: req.body.text });
+    
+    res.status(201).json(newGoal);
+  } catch (err) {
+    res.status(500).send("Unable to save to database");
+  }
+};
 
-  res.status(200).json(newGoal);
-});
 // @desc Update Goals
 // @route Put /api/goals/id
 // @access Private
