@@ -5,8 +5,8 @@ const {errorHandler} = require('./middleware/errorHandler')
 const connectDB = require('./config/db')
 const PORT = process.env.PORT
 
-connectDB()
 const app = express() 
+connectDB()
 
 // middleware
 app.use(express.json())
