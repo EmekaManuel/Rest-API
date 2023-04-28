@@ -5,14 +5,15 @@ const {errorHandler} = require('./middleware/errorhandlers')
 const connectDB = require('./config/db')
 const PORT = process.env.PORT
 
-connectDB()
 const app = express() 
+connectDB()
 
 // middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 app.use('/api/goals',require('./routes/goalRoutes') )
+app.use('/api/users',require('./routes/userRoutes') )
 app.use(errorHandler)
 
 app.listen(PORT, () => {
